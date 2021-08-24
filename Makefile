@@ -10,28 +10,23 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= $(shell find "." -name "*c")
-OBJS		= ${SRCS:.c=.o}
-NAME		= pipex.a
-CC			= gcc
-RM			= rm -f
-CFLAGS		= -Wall -Wextra -Werror
-AR			= ar csr
+NAME = pipex
+SRCS = ${shell find "." -name "*.c"}
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
-.c.o :
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+all: ${NAME}
 
-$(NAME) : ${OBJS}
-	${AR} pipex.a ${OBJS}
+${NAME}:
+	@${CC} ${CFLAGS} -L. ${SRCS} -o ${NAME}
 
-all : ${NAME}
+clean:
+	@${RM} ${OBJS}
 
-clean :
-	${RM} ${OBJS}
+fclean: clean
+	@${RM} ${NAME}
 
-fclean : clean
-	${RM} ${NAME}
+re: fclean all
 
-re : fclean all
-
-.PHONY: all clean fclean re .c.o
+.PHONY: clean fclean re all
