@@ -12,14 +12,15 @@
 
 NAME = pipex
 SRCS = ${shell find "." -name "*.c"}
+OBJS = ${SRCS:.c=.o}
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
 all: ${NAME}
 
-${NAME}:
-	@${CC} ${CFLAGS} -L. ${SRCS} -o ${NAME}
+${NAME}: ${OBJS}
+	@${CC} ${OBJS} ${CFLAGS}  -o ${NAME}
 
 clean:
 	@${RM} ${OBJS}
